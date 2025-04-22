@@ -1,21 +1,32 @@
+<!-- frontend/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lilly Medicine Dashboard</title>
+    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="disclaimer" id="disclaimer">
-        Disclaimer: All medicine names and prices used in this application are fictional and do not represent any real medicine(s).
-    </div>
-    <header>
-        <h1>Medicine Tracker</h1>
-    </header>
-    <main>
+    <h1>Lilly Medicine Dashboard</h1>
 
-    </main>
+    <!-- Average price display section -->
+    <div id="average-price">Average Price: Loading...</div>
+
+    <!-- Area where medicine cards will be injected -->
+    <div id="medicine-list"></div>
+
+    <!-- Form to submit new medicine -->
+    <h2>Add New Medicine</h2>
+    <form onsubmit="event.preventDefault(); submitMedicine();">
+        <input id="name" type="text" placeholder="Name" required>
+        <input id="description" type="text" placeholder="Description">
+        <input id="price" type="number" placeholder="Price" step="0.01">
+        <button type="submit">Add Medicine</button>
+    </form>
+
+    <!-- Link to JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>
