@@ -21,6 +21,16 @@ Run this module directly to start the FastAPI application.
 """
 import uvicorn
 import json
+import os
+"""
+This FastAPI app handles basic CRUD operations for medicines:
+- Get all medicines
+- Get one medicine by name
+- Add a medicine
+- Update a medicine's price
+- Delete a medicine
+- Get average price (NEW)
+"""
 
 app = FastAPI()
 
@@ -31,6 +41,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Path to the JSON file where data is stored
+DATA_FILE = os.path.join(os.path.dirname(__file__), "data.json")
+
+# Utility function: Load medicines from file
+def load_data():
+    with open(DATA_FILE, "r") as file:
+        return json.load(file)
+
+# Utility function: Save medicines to file
+def save_data(data):
+    with open(DATA_FILE, "w") as file:
+        json.dump(data, file, indent=2)
 
 @app.get("/medicines")
 def get_all_meds():
@@ -61,7 +84,7 @@ def get_single_med(name: str):
     return {"error": "Medicine not found"}
 
 @app.post("/create")
-def create_med(name: str = Form(...), price: float = Form(...)):
+def create_med(name: str = Form(...), price: float = Form(...), description: str = Form("")):
     """
     This function creates a new medicine with the specified name and price.
     It expects the name and price to be provided as form data.
@@ -71,16 +94,16 @@ def create_med(name: str = Form(...), price: float = Form(...)):
     Returns:
         dict: A message confirming the medicine was created successfully.
     """
+
     with open('data.json', 'r+') as meds:
         current_db = json.load(meds)
-        new_med = {"name": name, "price": price}
+        new_med = {"name": name, "price": price, "description": description}
         current_db["medicines"].append(new_med)
         meds.seek(0)
         json.dump(current_db, meds)
         meds.truncate()
-        
     return {"message": f"Medicine created successfully with name: {name}"}
-
+        
 @app.post("/update")
 def update_med(name: str = Form(...), price: float = Form(...)):
     """
@@ -123,8 +146,14 @@ def delete_med(name: str = Form(...)):
                 meds.truncate()
                 return {"message": f"Medicine deleted successfully with name: {name}"}
     return {"error": "Medicine not found"}
-
-# Add your average function here
+@app.get("/average-price")
+def get_average_price():
+    data = load_data()["medicines"]
+    prices = [med.get("price") for med in data if isinstance(med.get("price"), (int, float))]
+    if not prices:
+        return {"average_price": 0}
+    avg = round(sum(prices) / len(prices), 2)
+    return {"average_price": avg}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
