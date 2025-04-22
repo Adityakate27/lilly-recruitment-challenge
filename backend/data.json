@@ -1,6 +1,14 @@
 {
     "medicines": [
         {
+            "name": "Paracetamol", 
+            "price": 12.5 
+        },
+        {
+            "name": "Ibuprofen", 
+            "price": 10.0 
+        },
+        {
             "name": "Elixirium",
             "price": 5.99
         },
