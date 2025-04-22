@@ -1,32 +1,69 @@
-/* ---- Global styles ---- */
+/* frontend/style.css */
 
-/* CSS Reset */
-* {
-    box-sizing: border-box;
-}
-
-/* Body styles. DO NOT REMOVE OR EDIT UNLESS ABSOLUTELY NECESSARY */
+/* General layout and base styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 0;
-    margin: 0;
+    margin: 20px;
+    background-color: #f4f4f9;
     color: #333;
-    padding-top: 30px;
 }
 
-/* Disclaimer styles. DO NOT REMOVE OR EDIT UNLESS ABSOLUTELY NECESSARY */
-.disclaimer {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: black;
-    color: white;
+h1 {
     text-align: center;
-    padding: 0.5rem;
-    z-index: 1000;
-    font-weight: bold;
-    height: 30px;
+    color: #4a4a4a;
 }
 
-/* ---- Your custom styles below ---- */
+/* Flex container for medicine cards */
+#medicine-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Individual medicine card box */
+.medicine-card {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form layout */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+input, button {
+    width: 300px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #5c67f2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3c47c1;
+}
+
+/* Styling for average price section */
+#average-price {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 10px;
+}
